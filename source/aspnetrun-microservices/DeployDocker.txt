@@ -1,0 +1,33 @@
+﻿1. Tạo file docker compose
+	Các bước: Add contrainer Orc... -> Docker Compose
+
+2. Mô tả docker compose
+FROM mcr.microsoft.com/dotnet/aspnet:3.1-buster-slim AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+Các dòng trong Dockerfile bắt đầu bằng hình ảnh ASP.NET từ Microsoft Container Registry (mcr.microsoft.com) và tạo một hình ảnh trung gian basehiển thị các cổng 80 và 443, đồng thời đặt thư mục làm việc thành /app.
+
+Giai đoạn tiếp theo là build, xuất hiện như sau:
+
+
+Sao chép
+FROM mcr.microsoft.com/dotnet/sdk:3.1-buster-slim AS build
+WORKDIR /src
+COPY ["WebApplication43/WebApplication43.csproj", "WebApplication43/"]
+RUN dotnet restore "WebApplication43/WebApplication43.csproj"
+COPY . .
+WORKDIR "/src/WebApplication43"
+RUN dotnet build "WebApplication43.csproj" -c Release -o /app/build
+Bạn có thể thấy rằng buildgiai đoạn bắt đầu từ một hình ảnh gốc khác với sổ đăng ký ( sdkthay vì aspnet), thay vì tiếp tục từ cơ sở. Hình sdkảnh có tất cả các công cụ xây dựng và vì lý do đó, nó lớn hơn rất nhiều so với hình ảnh aspnet, chỉ chứa các thành phần thời gian chạy. Lý do sử dụng một hình ảnh riêng biệt trở nên rõ ràng khi bạn nhìn vào phần còn lại của Dockerfile:
+
+
+Sao chép
+FROM build AS publish
+RUN dotnet publish "WebApplication43.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "WebApplication43.dll"]
+Giai đoạn cuối cùng bắt đầu lại từ baseđó và bao gồm COPY --from=publishsao chép đầu ra đã xuất bản sang hình ảnh cuối cùng. Quá trình này giúp cho hình ảnh cuối cùng có thể nhỏ hơn rất nhiều, vì nó không cần phải bao gồm tất cả các công cụ xây dựng có trong sdkhình ảnh.

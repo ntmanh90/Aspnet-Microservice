@@ -1,0 +1,6 @@
+﻿1. Tạo database mondo
+2. Tạo connection
+3. Tạo project .net core
+4. Tạo entity
+5. tạo kết nối api với mondo
+6. tạo file docker compose

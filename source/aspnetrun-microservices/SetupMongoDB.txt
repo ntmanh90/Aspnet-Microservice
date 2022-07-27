@@ -1,0 +1,23 @@
+﻿1. install:docker pull mongo
+2. run mongoDB: docker run -d -p 27017:27017 --name shopping-mongo mongo
+3. truy cap mongoDB: docker exec -it shopping-mongo /bin/bash
+4. truy cập mongo shell: mongo
+
+// Command mongo
+show dbs //hiển thị danh sách db
+use CatalogDb // chọn sử dụng db CâtlogDb
+db.createCollection('Products')// tạo collection Products
+show collections // hiển thị danh sách collection của Db hiện tại
+// add record for collection
+db.Products.insertMany([{ 'Name':'Asus Laptop','Category':'Computers', 'Summary':'Summary', 'Description':'Description', 'ImageFile':'ImageFile', 'Price':54.93 }, { 'Name':'HP Laptop','Category':'Computers', 'Summary':'Summary', 'Description':'Description', 'ImageFile':'ImageFile', 'Price':88.93 } ])
+
+
+db.Products.find({}).pretty() //tìm kiếm record of collection
+db.Products.remove({})
+
+//Connect mongoDb on API
+1. Create string connectiuon in appsetings.json
+
+
+Cài đặt mondoclient: giống với sql managerman tool
+docker run -d -p 3000:3000 mongoclient/mongoclient
