@@ -42,3 +42,10 @@ D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\
 D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\Catalog\Catalog.API\obj\Debug\net5.0\Catalog.API.pdb
 D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\Catalog\Catalog.API\obj\Debug\net5.0\Catalog.API.genruntimeconfig.cache
 D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\Catalog\Catalog.API\obj\Debug\net5.0\ref\Catalog.API.dll
+D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\Catalog\Catalog.API\bin\Debug\net5.0\libzstd.dll
+D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\Catalog\Catalog.API\bin\Debug\net5.0\snappy32.dll
+D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\Catalog\Catalog.API\bin\Debug\net5.0\snappy64.dll
+D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\Catalog\Catalog.API\bin\Debug\net5.0\libsnappy64.so
+D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\Catalog\Catalog.API\bin\Debug\net5.0\libzstd.so
+D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\Catalog\Catalog.API\bin\Debug\net5.0\libsnappy64.dylib
+D:\MyFiles\Hoc Tap\NetCore\Microservice\source\aspnetrun-microservices\Services\Catalog\Catalog.API\bin\Debug\net5.0\libzstd.dylib

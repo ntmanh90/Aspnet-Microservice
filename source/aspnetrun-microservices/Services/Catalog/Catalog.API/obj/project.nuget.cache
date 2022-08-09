@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "oI8Fw5RZebThliGlI0MLAdrXFdYYl8bEEsNii0/dphSK8jiovCbfjtxb6ShseSBGw21G5jUxjrWx7VDIagUaGg==",
+  "dgSpecHash": "LUHNviDpn2QJKIs77QH3iVluR11ySp/Aznb/uYsKcdfOZUWnY8AC5BsDTZRrynTabOfAJ9xtyJ3mOBEMUKvbRQ==",
   "success": true,
   "projectFilePath": "D:\\MyFiles\\Hoc Tap\\NetCore\\Microservice\\source\\aspnetrun-microservices\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
   "expectedPackageFiles": [

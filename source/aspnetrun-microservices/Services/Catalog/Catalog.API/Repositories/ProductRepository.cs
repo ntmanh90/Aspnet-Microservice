@@ -1,7 +1,9 @@
 ﻿using Catalog.API.Data;
 using Catalog.API.Entities;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Catalog.API.Repositories
@@ -17,7 +19,23 @@ namespace Catalog.API.Repositories
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await _context.Products.Find(p => true).ToListAsync();
+            var builder = Builders<Product>.Filter;
+            var filter = builder.Eq("name", "IPhone X") & builder.Eq("name", "Samsung 10");
+            var check = await _context.Products.Find(filter).ToListAsync();
+
+            var query = _context.Products.AsQueryable().Where(a => a.Name == "IPhone X" || a.Name == "Samsung 10").ToList();
+
+            var sortDown = await _context.Products.CountDocumentsAsync(a => a.Price > 0);
+
+            var filter01 = new BsonDocument();
+            var check_filter01 = await _context.Products.Find(filter01).ToListAsync();
+
+            var marth = _context.Products.Aggregate().Match(a => a.Price > 0).ToListAsync();
+            var group = _context.Products.Aggregate().Group(a => a.Name, g => new { Name = g.ToList() }).ToList();
+
+
+
+            return check;
         }
 
         public async Task<Product> GetProduct(string id)
@@ -27,7 +45,11 @@ namespace Catalog.API.Repositories
 
         public async Task<IEnumerable<Product>> GetProductByCategory(string categoryName)
         {
-            //FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Name, name);
+            var builder = Builders<ImageProduct>.Filter;
+            var filter = builder.Eq("cuisine", "Italian") & builder.Eq("address.zipcode", "10075");
+
+            var result = await _context.ImageProducts.Find(filter).ToListAsync();
+
             return await _context.Products.Find(p => p.Category == categoryName).ToListAsync();
         }
 

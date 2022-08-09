@@ -1,4 +1,7 @@
-﻿1. install:docker pull mongo
+﻿Document mongo: https://mongodb.github.io/mongo-csharp-driver/2.17/reference/driver/definitions/
+
+
+1. install:docker pull mongo
 2. run mongoDB: docker run -d -p 27017:27017 --name shopping-mongo mongo
 3. truy cap mongoDB: docker exec -it shopping-mongo /bin/bash
 4. truy cập mongo shell: mongo
@@ -21,3 +24,18 @@ db.Products.remove({})
 
 Cài đặt mondoclient: giống với sql managerman tool
 docker run -d -p 3000:3000 mongoclient/mongoclient
+
+// Tóm tắt kiến thức mongoDB
+1. create collection db.createCollection(name,options);
+
+2. Insert
+db.users.insert({
+... _id : ObjectId("507f191e810c19729de860ea"),
+... title: "MongoDB Overview",
+... description: "MongoDB is no sql database",
+... by: "tutorials point",
+... url: "http://www.tutorialspoint.com",
+... tags: ['mongodb', 'database', 'NoSQL'],
+... likes: 100
+... })
+

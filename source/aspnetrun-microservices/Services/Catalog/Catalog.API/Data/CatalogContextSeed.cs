@@ -16,6 +16,15 @@ namespace Catalog.API.Data
                 productCollection.InsertManyAsync(GetPreconfiguredProducts());
             }
         }
+        public static void SeedData(IMongoCollection<ImageProduct> imageProductCollection)
+        {
+            bool existImageProduct = imageProductCollection.Find(p => true).Any();
+
+            if (!existImageProduct)
+            {
+                imageProductCollection.InsertManyAsync(GetPreConfiguredImageProducts());
+            }
+        }
 
         private static IEnumerable<Product> GetPreconfiguredProducts()
         {
@@ -80,6 +89,19 @@ namespace Catalog.API.Data
                     ImageFile = "product-6.png",
                     Price = 240.00M,
                     Category = "Home Kitchen"
+                }
+            };
+        }
+
+        private static IEnumerable<ImageProduct> GetPreConfiguredImageProducts()
+        {
+            return new List<ImageProduct>()
+            {
+                new ImageProduct() {
+                    Id = "602d2149e773f2a3990b47fh",
+                    ProjectId = "602d2149e773f2a3990b47fa",
+                    Name = "Image 01",
+                    Path = "Data/images/01.jpg"
                 }
             };
         }

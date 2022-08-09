@@ -6,7 +6,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
-Các dòng trong Dockerfile bắt đầu bằng hình ảnh ASP.NET từ Microsoft Container Registry (mcr.microsoft.com) và tạo một hình ảnh trung gian basehiển thị các cổng 80 và 443, đồng thời đặt thư mục làm việc thành /app.
+Các dòng trong Dockerfile bắt đầu bằng hình ảnh ASP.NET từ Microsoft Container Registry 
+(mcr.microsoft.com) và tạo một hình ảnh trung gian base hiển thị các cổng 80 và 443,
+đồng thời đặt thư mục làm việc thành /app.
 
 Giai đoạn tiếp theo là build, xuất hiện như sau:
 
@@ -19,7 +21,10 @@ RUN dotnet restore "WebApplication43/WebApplication43.csproj"
 COPY . .
 WORKDIR "/src/WebApplication43"
 RUN dotnet build "WebApplication43.csproj" -c Release -o /app/build
-Bạn có thể thấy rằng buildgiai đoạn bắt đầu từ một hình ảnh gốc khác với sổ đăng ký ( sdkthay vì aspnet), thay vì tiếp tục từ cơ sở. Hình sdkảnh có tất cả các công cụ xây dựng và vì lý do đó, nó lớn hơn rất nhiều so với hình ảnh aspnet, chỉ chứa các thành phần thời gian chạy. Lý do sử dụng một hình ảnh riêng biệt trở nên rõ ràng khi bạn nhìn vào phần còn lại của Dockerfile:
+Bạn có thể thấy rằng build giai đoạn bắt đầu từ một hình ảnh gốc khác với sổ đăng ký 
+( sdk thay vì aspnet), thay vì tiếp tục từ cơ sở. Hình sdk ảnh có tất cả các công cụ xây dựng 
+và vì lý do đó, nó lớn hơn rất nhiều so với hình ảnh aspnet, chỉ chứa các thành phần thời gian chạy. 
+Lý do sử dụng một hình ảnh riêng biệt trở nên rõ ràng khi bạn nhìn vào phần còn lại của Dockerfile:
 
 
 Sao chép
@@ -30,4 +35,20 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "WebApplication43.dll"]
-Giai đoạn cuối cùng bắt đầu lại từ baseđó và bao gồm COPY --from=publishsao chép đầu ra đã xuất bản sang hình ảnh cuối cùng. Quá trình này giúp cho hình ảnh cuối cùng có thể nhỏ hơn rất nhiều, vì nó không cần phải bao gồm tất cả các công cụ xây dựng có trong sdkhình ảnh.
+Giai đoạn cuối cùng bắt đầu lại từ base đó và bao gồm COPY --from=publish sao chép đầu
+ra đã xuất bản sang hình ảnh cuối cùng.
+Quá trình này giúp cho hình ảnh cuối cùng có thể nhỏ hơn rất nhiều, 
+vì nó không cần phải bao gồm tất cả các công cụ xây dựng có trong sdk hình ảnh.
+
+
+- Cấu hình trong docker-compose
+	Hiển thị Image run cho container thông qua thuộc tính: image
+	dữ liệu của image được build từ thuộc tính: dockerfile
+	- Volumes: thiết lập volums được sử dụng
+
+- Cấu hình trong docker-compose-override
+	container_name: tên container
+	environment: thiết biến tham số cho môi trường chạy
+	depends_on: phụ thuộc vào container nào. chỉ khởi chạy khi container phụ thuộc đã chạy thành công
+	ports: chạy trên cổng nào
+

@@ -1,0 +1,16 @@
+﻿1. Setup redis
+- docker pull redis
+- Run contrainer redis: docker run -d -p 6379:6379 --name aspnetrun-redis redis
+- show log contrainer: docker logs -f aspnetrun-redis
+- go to command in contrainer: docker exec -it aspnetrun-redis /bin/bash -> redis-cli// goto command line
+- check ping để kiểm tra xem cài đặt redis phía server đã thành công chưa
+- command line: redis-cli. doc: https://redis.io/docs/manual/cli/ or https://www.tutorialspoint.com/redis/redis_keys.htm
+- set key: set cặp khóa và giá trị
+- get key: lấy giá trị theo khóa
+- setup connect API with server Redis:
+            services.AddStackExchangeRedisCache(option =>
+            {
+                option.Configuration = "localhost:6379";
+            });
+
+- docker start: start run container

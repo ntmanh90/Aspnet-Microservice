@@ -1,0 +1,52 @@
+Setup postgresSQL deploy with docker compose
+1. setup image, container run(trong file docker-compose.yml)
+	discountdb:
+		image: postgres
+
+2. setup container and enviroment in file docker-compose.override.yml
+discountdb:
+	container_name:discountdb
+	environment:
+		- POSTGRES_USER=admin
+		- POSTGRES_PASSWORD=admin1234
+		- POSTGRES_DB=DiscountDb
+	restart: always
+	post:
+		- "5432:5432"
+	volumes:
+		- postgres_data:/var/lib/postgressql/data/
+
+==========================
+2. Setup pgAdmin same sql develop tool
+	padmin:
+		image: dpage/pgadmin4
+	volumes:
+		pgadmin_data
+
+pgadmin:
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@aspnetrun.com
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
+    restart: always
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/root/.pgadmin
+
+3. Create table
+
+	
+-- Create Table with below script
+
+Tools - Query Tool
+
+	CREATE TABLE Coupon(
+		ID SERIAL PRIMARY KEY         NOT NULL,
+		ProductName     VARCHAR(24) NOT NULL,
+		Description     TEXT,
+		Amount          INT
+	);
+
+4. Setup packages
+	Npgsql, Dappper
